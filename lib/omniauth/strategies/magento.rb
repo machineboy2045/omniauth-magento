@@ -1,5 +1,6 @@
 require 'omniauth/strategies/oauth'
 require 'multi_json'
+require 'digest'
 
 module OmniAuth
   module Strategies
@@ -20,7 +21,7 @@ module OmniAuth
         if not options.client_options.authorize_path == "/admin/oauth_authorize"
           raw_info.keys.first.to_i
         else
-          {}
+          Digest::SHA256.digest options.client_options.site
         end
       end      
 
